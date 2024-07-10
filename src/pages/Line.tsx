@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import styled from "styled-components";
 
 const Body = styled.div`
@@ -32,6 +32,7 @@ const ButtonGroup = styled.div`
   gap: 2rem;
   margin-bottom: 1rem;
 `;
+
 const MemberList = styled.ul`
   list-style: none;
   padding: 0;
@@ -58,10 +59,20 @@ const LineEmoji = styled.span`
 
 const MemberArea = styled.div`
   width: 500px;
-  padding-bottom: 15 px;
+  padding-bottom: 15px;
 `;
 
-const teamsData = [
+interface Member {
+  name: string;
+  line: string;
+}
+
+interface Team {
+  teamName: string;
+  members: Member[];
+}
+
+const teamsData: Team[] = [
   {
     teamName: "1팀",
     members: [
@@ -105,12 +116,12 @@ const teamsData = [
 ];
 
 export const Line = () => {
-  const [teams, setTeams] = useState(teamsData);
-  const [selectedTeam, setSelectedTeam] = useState(null);
+  const [teams, setTeams] = useState<Team[]>(teamsData);
+  const [selectedTeam, setSelectedTeam] = useState<Team | null>(null);
 
   const lines = ["탑", "정글", "미드", "원딜", "서폿"];
 
-  const handleTeamClick = (teamIndex) => {
+  const handleTeamClick = (teamIndex: number) => {
     setSelectedTeam(teams[teamIndex]);
   };
 
@@ -128,7 +139,7 @@ export const Line = () => {
       });
       setTeams(updatedTeams);
       setSelectedTeam(
-        updatedTeams.find((team) => team.teamName === selectedTeam.teamName)
+        updatedTeams.find((team) => team.teamName === selectedTeam.teamName) || null
       );
     }
   };

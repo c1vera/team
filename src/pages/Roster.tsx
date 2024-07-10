@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import styled from "styled-components";
 
 const Body = styled.div`
@@ -9,29 +9,6 @@ const Body = styled.div`
   padding: 2rem;
 `;
 
-const Button = styled.button`
-  background-color: #ad8aff;
-  border: none;
-  color: #ffffff;
-  font-size: 20px;
-  width: 100px;
-  padding: 5px;
-  border-radius: 5px;
-  &:hover {
-    background-color: #916cff !important;
-  }
-  &:disabled {
-    background-color: #cccccc;
-  }
-`;
-
-const ButtonGroup = styled.div`
-  display: flex;
-  justify-content: left;
-  align-items: left;
-  gap: 2rem;
-  margin-bottom: 1rem;
-`;
 const MemberList = styled.ul`
   list-style: none;
   padding: 0;
@@ -49,16 +26,18 @@ const MemberItem = styled.li`
   font-size: 18px;
   color: #333;
 `;
+const TeamContainer = styled.div`
+  margin-bottom: 2rem;
+`;
 
-const LineEmoji = styled.span`
-  margin-left: 1rem;
-  font-size: 18px;
-  color: #666;
+const TeamHeader = styled.h2`
+  color: #4a4a4a;
+  margin-bottom: 1rem;
 `;
 
 const MemberArea = styled.div`
   width: 500px;
-  padding-bottom: 15 px;
+  padding-bottom: 15px;
 `;
 
 const teamsData = [
@@ -104,13 +83,25 @@ const teamsData = [
   },
 ];
 
-export const Line = () => {
+export const Roster = () => {
+  const [teams] = useState(teamsData);
 
   return (
     <Body>
-      
+      {teams.map((team, index) => (
+        <MemberArea key={index}>
+          <TeamContainer>
+            <TeamHeader>{team.teamName} 멤버</TeamHeader>
+            <MemberList>
+              {team.members.map((member, index) => (
+                <MemberItem key={index}>
+                  {member.name}
+                </MemberItem>
+              ))}
+            </MemberList>
+          </TeamContainer>
+        </MemberArea>
+      ))}
     </Body>
   );
 };
-
-export default Line;
