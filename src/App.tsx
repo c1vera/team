@@ -6,7 +6,7 @@ import { Roster } from "./pages/Roster";
 function App() {
   return (
     <>
-      <Router>
+      <Router basename="/team">
         <NavBar />
         <Routes>
           <Route path="/" element={<Line/>} />
